@@ -36,7 +36,7 @@ def main():
     tf_models = ['SSD MobileNet','CenterNet HourGlass','EfficientDet','Faster R-CNN ResNet']
 
         
-    model_choice = st.sidebar.selectbox('TensorFlow Model Select',tf_models)
+    model_choice = st.sidebar.selectbox('TensorFlow Detection Model Select',tf_models)
     boxes = st.sidebar.slider('Max Boxes',0,200,value=50,step=5)
     min_score = st.sidebar.slider('Score',1,100,value=50)
 
