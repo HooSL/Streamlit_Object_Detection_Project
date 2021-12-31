@@ -29,28 +29,25 @@ def main():
 
 
     
-    tf_models = ['SSD MobileNet V2','CenterNet HourGlass104']
+    tf_models = ['SSD MobileNet','CenterNet HourGlass','EfficientDet']
 
         
     model_choice = st.sidebar.selectbox('TensorFlow Model Select',tf_models)
-    if model_choice == 'SSD MobileNet V2':
+    boxes = st.sidebar.slider('Max Boxes',1,200,value=50)
+    min_score = st.sidebar.slider('Score',1,100,value=30)
+
+    if model_choice == 'SSD MobileNet':
 
         image_file = st.file_uploader('이미지를 업로드 하세요',type=['png','jpg','jpeg'])
         if image_file is not None :
-            #프린트문은 디버깅용 터미널에 출력된다.
-            print(type(image_file))
-            print(image_file.name)
-            print(image_file.size)
-            print(image_file.type)
-            
+          
+
             #파일명 변경 후 저장
             image_file.name = 'test.jpg'
 
             #파일명을 현재시간의 조합으로 해서 만들어보세요.(안겹치려고)
             #예) 현재시간.jpg
             current_time = datetime.now()
-            print(current_time)
-            print(current_time.isoformat().replace(':','_'))
             current_time = current_time.isoformat().replace(':','_')
             image_file.name = current_time+'.jpg'
 
@@ -62,17 +59,13 @@ def main():
 
             img = np.array(img)
             #넘파이 어레이를 오브젝트 디택션함수에 넘겨준다
-            run_ssdmodel_app(img)
+            run_ssdmodel_app(img,boxes,min_score)
 
 
-    elif model_choice == 'CenterNet HourGlass104':
+    elif model_choice == 'CenterNet HourGlass':
         image_file = st.file_uploader('이미지를 업로드 하세요',type=['png','jpg','jpeg'])
         if image_file is not None :
             #프린트문은 디버깅용 터미널에 출력된다.
-            print(type(image_file))
-            print(image_file.name)
-            print(image_file.size)
-            print(image_file.type)
             
             #파일명 변경 후 저장
             image_file.name = 'test.jpg'
@@ -80,8 +73,6 @@ def main():
             #파일명을 현재시간의 조합으로 해서 만들어보세요.(안겹치려고)
             #예) 현재시간.jpg
             current_time = datetime.now()
-            print(current_time)
-            print(current_time.isoformat().replace(':','_'))
             current_time = current_time.isoformat().replace(':','_')
             image_file.name = current_time+'.jpg'
 
@@ -93,8 +84,33 @@ def main():
 
             img = np.array(img)
             #넘파이 어레이를 오브젝트 디택션함수에 넘겨준다
-            run_cunternet_model_app(img)
+            run_cunternet_model_app(img,boxes,min_score)
+
+    elif model_choice == 'EfficientDet':
+        image_file = st.file_uploader('이미지를 업로드 하세요',type=['png','jpg','jpeg'])
+        if image_file is not None :
+            #프린트문은 디버깅용 터미널에 출력된다.
             
+            #파일명 변경 후 저장
+            image_file.name = 'test.jpg'
+
+            #파일명을 현재시간의 조합으로 해서 만들어보세요.(안겹치려고)
+            #예) 현재시간.jpg
+            current_time = datetime.now()
+            current_time = current_time.isoformat().replace(':','_')
+            image_file.name = current_time+'.jpg'
+
+            #파일을 저장할 수 있도록 위의 함수를 호출하자
+            #save_uploaded_file('temp',image_file)
+            
+            #오브젝트 디텍션을 여기서 한다
+            img = Image.open(image_file)
+
+            img = np.array(img)
+            #넘파이 어레이를 오브젝트 디택션함수에 넘겨준다
+            run_cunternet_model_app(img,boxes,min_score)
+
+
 
 if __name__ == '__main__':
     main()

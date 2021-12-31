@@ -32,7 +32,7 @@ print(category_index)
 
 #테스트한 모델들
 #/20200713/centernet_hg104_1024x1024_coco17_tpu-32.tar.gz
-#/20200711/ssd_mobilenet_v2_320x320_coco17_tpu-8.tar.gz
+#/20200711/efficientdet_d0_coco17_tpu-32.tar.gz
 
 # Download and extract model
 def download_model(model_name, model_date):
@@ -43,8 +43,8 @@ def download_model(model_name, model_date):
                                         untar=True)
     return str(model_dir)
 #모델 날짜와 모델 이름만 바뀜
-MODEL_DATE = '20200713'
-MODEL_NAME = 'centernet_hg104_1024x1024_coco17_tpu-32'
+MODEL_DATE = '20200711'
+MODEL_NAME = 'efficientdet_d0_coco17_tpu-32'
 PATH_TO_MODEL_DIR = download_model(MODEL_NAME, MODEL_DATE)
 
 
@@ -102,5 +102,5 @@ def show_inference(detection_model,image_np,boxes,min_score) :
     img = Image.fromarray(image_np_with_detections)
     st.image(img,use_column_width=True)
 
-def run_cunternet_model_app(image_np,boxes,min_score):
+def run_efficient_model_app(image_np,boxes,min_score):
     show_inference(detection_model,image_np,boxes,min_score)
