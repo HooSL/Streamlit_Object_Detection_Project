@@ -30,8 +30,7 @@ print(category_index)
 #위 링크에서 모델을 가져올 수 있다
 
 
-#테스트한 모델들
-#/20200713/centernet_hg104_1024x1024_coco17_tpu-32.tar.gz
+
 #/20200711/faster_rcnn_resnet50_v1_1024x1024_coco17_tpu-8.tar.gz
 
 # Download and extract model
